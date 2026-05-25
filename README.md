@@ -48,16 +48,30 @@ evaluated against all three embedding strategies for a full comparison.
 
 ## Results
 
+Performance comparison across all evaluated models:
+
 | Model | Accuracy | Macro F1 |
 |-------|----------|----------|
-| Logistic Regression (baseline, TF-IDF) | 0.630 | 0.630 |
-| Logistic Regression (tuned, TF-IDF)    | 0.637 | 0.636 |
+| **Logistic Regression (TF-IDF)** | **0.6495** | **0.6479** |
+| Deep Neural Network (TF-IDF)     | 0.5922 | 0.5941 |
+| SimpleRNN                        | 0.5011 | 0.4820 |
+| GRU                              | 0.5525 | 0.5425 |
+| LSTM                             | 0.5603 | 0.5549 |
+| Bidirectional SimpleRNN          | 0.2746 | 0.2513 |
+| Bidirectional GRU                | 0.5544 | 0.5511 |
+| Bidirectional LSTM               | 0.5457 | 0.5516 |
 
-The tuned Logistic Regression provides a strong, fast baseline at ~64%
-accuracy. The notebook additionally trains and compares the full set of
-recurrent architectures across the three embedding strategies and unit sizes;
-see the notebook and the accompanying PDF report for the complete comparison
-plots and confusion matrices.
+**Key finding:** Logistic Regression with TF-IDF achieved the best overall
+performance (**Macro F1 = 0.6479**), outperforming all neural architectures.
+On this large, well-structured, balanced dataset, strong class-specific
+keywords make sparse TF-IDF features highly discriminative — neural models must
+jointly learn embeddings and a classifier, which can dilute the learning signal
+when lexical cues alone are sufficient. Among the recurrent models, GRU and LSTM
+were the most stable, while the Bidirectional SimpleRNN performed poorly due to
+vanishing gradients.
+
+See the accompanying PDF report for the full comparison plots and confusion
+matrices.
 
 ## Tech Stack
 
